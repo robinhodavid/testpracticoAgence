@@ -1,0 +1,69 @@
+/* Estilos personalizado para la vista*/
+
+.oculto
+{
+	visibility: hidden;
+	height: 0px;
+}
+
+.card-style 
+{
+	margin-left: 2% !important;
+	margin-right: 2% !important;
+	border-radius: 2px;
+}
+
+/*Estilos para las tablas*/
+.rowtable{	border: 1px solid #c1bfbf;}
+.coltable 
+{
+	border-left: 1px solid #c1bfbf;
+	border-right: 1px solid #c1bfbf;
+}
+
+
+.htitletable 
+{
+	background: #efefef;
+	font-size: 13px;
+	text-align: left;
+}
+
+.htable 
+{
+	background: #efefef;
+	font-size: 13px;
+	text-align: right;
+}
+.btable 
+{
+	font-size: 13px;
+	text-align: right;
+}
+
+
+.shtable 
+{
+	background: #f8f9fa;
+	font-size: 12px;
+	text-align: center;
+	font-weight: 600;
+}
+
+.text-red{color: #f40813;}
+.text-blue{color: #081af4;}
+
+
+.ctable{margin: 2%;}
+
+/*Estilos para los input*/
+
+.input-group 
+{
+	width: 25%;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple 
+{
+	border: solid #687ef0 1px !important;
+}
