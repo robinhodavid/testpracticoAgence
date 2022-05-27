@@ -17,7 +17,9 @@ class PerformanceComercialController extends Controller
     public function index(Request $request)
     {
 
-      
+        # Indicador para mostrar los resultados. 
+        $retVal = ($request->consultor==null) ? false : true ;
+
         # para que Objeto $request->periodo no entre en null
         if (!is_null($request->periodo)) {
             # Obtenemos el rango de fecha.
@@ -79,18 +81,19 @@ class PerformanceComercialController extends Controller
                 DB::raw(''. $valor_comissao.' as  valor_comissao'),
                 DB::raw(''. $lucro.' as  lucro')
                 )
-            ->groupBy('mes','cao_usuario.co_usuario','cao_salario.brut_salario')
-
+            ->groupBy('mes','cao_usuario.co_usuario','cao_salario.brut_salario','cao_usuario.no_usuario')
             ->join('cao_os','cao_os.co_usuario','=','cao_usuario.co_usuario')
             ->join('cao_fatura','cao_fatura.co_os','=','cao_os.co_os')
             ->join('cao_salario','cao_salario.co_usuario','=','cao_usuario.co_usuario')
-            
-            ->orderBy('cao_usuario.co_usuario','ASC');
+
+            ->orderBy('cao_usuario.no_usuario','ASC');
 
             ($request->consultor == null) ? "": $query->whereIn('cao_os.co_usuario',$request->consultor);
             ($request->periodo   == null) ? "": $query->whereBetween('cao_fatura.data_emissao',[$dateRange [0],$dateRange [1]]);
    
-        $consultorResult = $query->get()->groupBy('no_usuario');           
+        $consultorResult = $query->get()->groupBy('no_usuario'); 
+
+
 
         # Hacemo una nueva consulta unicamente a la tabla cao_salario, para asi obtener el promedio costoMedio 
         $query1 = DB::table('cao_salario')
@@ -128,7 +131,6 @@ class PerformanceComercialController extends Controller
 
     
         
-
        # Obtenemos los datos para la Diagrama de Pizza. 
        # Sumatoria total de receita
         $totalReceita = $consResult->sum('receita_liquida');
@@ -145,8 +147,6 @@ class PerformanceComercialController extends Controller
         $porcentaje = array_unique($percent);                        
         # Ordenamos el array
         $porcentaje = array_values($porcentaje);
-
-        
 
         return view('performance_comercial',get_defined_vars()); 
     }

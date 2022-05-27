@@ -4,7 +4,6 @@
 
 @section('body_content')
 
-
 	<div class="col my-4"> <!-- Col -->
 		<div class="card card-style">
         @if(session('msj'))
@@ -35,10 +34,9 @@
 					  	</li>
 						</ul>
 						<div class="tab-content" id="myTabContent">
-
 					  		<div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
 					  			<!-- Tab1 -->	
-					  			<form method="GET" action="{{ route('comercial')}}" role="search" class="form-trans">
+					  			<form method="GET" action="{{ route('comercial')}}" class="form-trans">
 									@csrf	
 					  				<div class="row">
 					  					<div class="col my-2">
@@ -74,7 +72,7 @@
 										    			<button type="submit" class="btn btn-dark" value="1"> <i class="fas fa-fw fa-clipboard text-white"></i>
 															Relatório</button>
 														</form>		
-										    			<button type="button" class="btn btn-dark"><i class="fa fa-solid fa-chart-bar"></i>
+										    			<button id="grafica_btn" type="button" class="btn btn-dark"><i class="fa fa-solid fa-chart-bar"></i>
 
 															Gráfico</button>
 
@@ -85,8 +83,9 @@
 												</thead>								
 											</table>
 											</div>
-					  				</div>			
-					  		
+					  				</div>	
+					  			<!--Condicionante para el boton Relatorio -->			
+									@if($retVal)				  		
 					  				<div class="row">
 					  					<div class="col my-4">
 					  						<div class="card card-style">
@@ -137,11 +136,11 @@
 					  						</div>
 					  					</div>
 					  				</div>
+					  			@endif		
 
-					  				<!--Bar Chart -->
-
-					  				<div class="row">
-					  					<div class="col-8 my-4">
+					  			<!--Bar Chart -->
+					  				<div class="row oculto" id="bargraf">
+					  					<div class="col my-4">
 					  						<div class="card card-style">
 							            <p class="text-center">
 							              <strong>Performace Comercial Janeiro de 2019 a Novembro 2019</strong>
@@ -162,43 +161,6 @@
         								</div>
         							</div>	
 							        <!-- /.col -->
-							        <div class="col-md-4">
-							          	<p class="text-center">
-							            	<strong>Custo Fixo Medio</strong>
-							          	</p>
-          								<!-- /.progress-group -->
-          								<div class="progress-group">
-	            							Servicios Realizados
-	            							<span class="float-right"><b>#</b>/text</span>
-	            							<div class="progress progress-sm">
-		              						<div class="progress-bar bg-ser" style="width:80%"></div>
-		            						</div>
-          								</div>
-          								<!-- /.progress-group -->
-								          <div class="progress-group">
-								            Series en Preñez
-								            <span class="float-right"><b>#</b>/Text</span>
-								            <div class="progress progress-sm">
-								              <div class="progress-bar bg-pre" style="width:70%"></div>
-								            </div>
-								          </div>
-          								<!-- /.progress-group -->
-          								<div class="progress-group">
-								            <span class="progress-text">Partos Registrados</span>
-								            <span class="float-right"><b>#</b>/text</span>
-								            <div class="progress progress-sm">
-								              <div class="progress-bar bg-par" style="width: 100%"></div>
-								            </div>
-								          </div>
-								          <!-- /.progress-group -->
-								          <div class="progress-group">
-								            Abortos Registrados
-								            <span class="float-right"><b>#</b>/text</span>
-								            <div class="progress progress-sm">
-								              <div class="progress-bar bg-abo" style="width: 90%"></div>
-								            </div>
-								          </div>
-					  					</div> <!--/.col-->
 					  				</div>
 					  				<div class="row" >
 					  					<div class="col">
@@ -256,13 +218,13 @@
 										    	<tr>
 										    		<!--Buttom -->
 										    		<th colspan="2" style="text-align: right; background: #f8f9fa;">
-										    			<button type="submit" class="btn btn-dark" value="1"> <i class="fas fa-fw fa-clipboard text-white"></i>
+										    			<button type="button" class="btn btn-dark" value="1"> <i class="fas fa-fw fa-clipboard text-white"></i>
 															Relatório</button>
-										    			<button type="submit" class="btn btn-dark"><i class="fa fa-solid fa-chart-bar"></i>
+										    			<button type="button" class="btn btn-dark"><i class="fa fa-solid fa-chart-bar"></i>
 
 															Gráfico</button>
 
-										    			<button type="submit" class="btn btn-dark"><i class="fas fa-fw fa-chart-pie text-white"></i>
+										    			<button type="button" class="btn btn-dark"><i class="fas fa-fw fa-chart-pie text-white"></i>
 															Pizza</button>
 										    		</th>
 										    	</tr>
@@ -438,29 +400,19 @@ var myChart = new Chart(ctx, {
 	pizza_btn.addEventListener("click",function (){
 		//document.getElementById("pierow").style.display = 'visible';		
 		$("#pierow").removeClass("oculto");
+		$("#bargraf").addClass("oculto")
+	});
+
+	let grafia_btn = document.getElementById("grafica_btn");
+
+	grafia_btn.addEventListener("click",function (){
+		//document.getElementById("pierow").style.display = 'visible';		
+		$("#bargraf").removeClass("oculto");
+		$("#pierow").addClass("oculto");
 	});
 
 
-/*
-	$(document).ready(function(){
 
-		$("#piz_btn").click(function(){
-			alert('Click en el boton');	
-			$("#pierow").addClass("rojo grande26");
-		});
-	/*
-		$("#boton02").click(function(){
-			$("#parrafo").addClass("rojo grande26");
-		});
-		$("#boton03").click(function(){
-			$("#parrafo").removeClass("rojo");
-		});
-		$("#boton04").click(function(){
-			$("#parrafo").removeClass("rojo grande26");
-		});
-		*//*
-
-});*/
 </script>
 
 
